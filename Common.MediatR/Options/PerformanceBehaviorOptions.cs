@@ -5,10 +5,9 @@ namespace Common.MediatR
 {
     public class PerformanceBehaviorOptions
     {
+        public const string OptionName = nameof(PerformanceBehaviorOptions);
         public ushort DefaultThresholdInMs { get; set; }
-
-        //TODO: discover more efficent data structure
-        public List<OptionItem> Settings { get; set; } = new List<OptionItem>();
+        public List<OptionItem> RequestOptions { get; set; } = new List<OptionItem>();
     }
 
     public class OptionItem

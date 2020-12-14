@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
 using Common.MediatR.Behaviors;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 namespace Common.MediatR
 {
@@ -14,7 +16,7 @@ namespace Common.MediatR
             params Assembly[] assemblies)
         {
             var options = new MediatROptions();
-
+            
             customSetup(options);
 
             if (options != null)
@@ -24,19 +26,7 @@ namespace Common.MediatR
                     //TODO: Could be refactored. Don't like the way I use
                     services.Configure(options.SetupPrfBehavior);
 
-                    /*
-                     * options.PerformanceBehaviorOption is already populated. How to pass as a IOption<PerformanceBehaviorOption>
-                     */
-
                     services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceTraceBehavior<,>));
-                    //services.Configure<PerformanceBehaviorOptions>(settings =>
-                    //{
-                    //    settings.
-                    //});
-                    services.Configure<PerformanceBehaviorOptions>(settings =>
-                    {
-                        
-                    });
                 }
 
                 if (options.EnableValidationPipeline)
@@ -53,6 +43,13 @@ namespace Common.MediatR
             return services;
         }
 
+        public static IServiceCollection BindFromJson<T>(this IServiceCollection services) where T : class
+        {
+            var provider = services.BuildServiceProvider();
+            var configuration = provider.GetRequiredService<IConfiguration>();
+
+            throw new NotImplementedException();
+        }
 
         #region Method Chaining
         /// <summary>

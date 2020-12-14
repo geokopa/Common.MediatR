@@ -32,19 +32,19 @@ namespace Common.MediatR.Behaviors
 
             var elapsedMilliseconds = _stopwatch.ElapsedMilliseconds;
 
-            if (!_optionValue.Settings.Any())
+            if (!_optionValue.RequestOptions.Any())
             {
                 if (elapsedMilliseconds >= _optionValue.DefaultThresholdInMs)
-                    this.logger.LogInformation($"Request {typeof(TRequest).Name} has ellapsed ({elapsedMilliseconds}) milliseconds  ");
+                    this.logger.LogWarning($"Request {typeof(TRequest).Name} has ellapsed ({elapsedMilliseconds}) milliseconds  ");
             }
             else
             {
-                foreach (var item in _optionValue.Settings)
+                foreach (var item in _optionValue.RequestOptions)
                 {
                     if (item.RequestType == typeof(TRequest))
                     {
                         if (elapsedMilliseconds >= item.ThresholdInMs)
-                            this.logger.LogInformation($"Request {item.RequestType} has ellapsed ({elapsedMilliseconds}) milliseconds. Threshold is set to: {item.ThresholdInMs} ");
+                            this.logger.LogWarning($"Request {item.RequestType} has ellapsed ({elapsedMilliseconds}) milliseconds. Threshold is set to: {item.ThresholdInMs} ");
                     }
                 }
             }

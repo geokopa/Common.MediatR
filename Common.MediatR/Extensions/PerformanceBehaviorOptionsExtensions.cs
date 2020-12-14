@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Common.MediatR
+﻿namespace Common.MediatR
 {
     public static class PerformanceBehaviorOptionsExtensions
     {
@@ -8,14 +6,10 @@ namespace Common.MediatR
             where T : class //TODO: should implement concrete constraints e.g IRequest, IRequest<T>
         {
             var type = typeof(T);
-            
-            if (options.Settings.Any(x=>x.RequestType == type))
-            {
 
-            }
-            
-            options.Settings.Add(new OptionItem { RequestType = type, ThresholdInMs = thresholdInMs });
-            
+            options.RequestOptions.RemoveAll(x => x.RequestType == type);
+            options.RequestOptions.Add(new OptionItem { RequestType = type, ThresholdInMs = thresholdInMs });
+
             return options;
         }
     }

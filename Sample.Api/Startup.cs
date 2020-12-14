@@ -1,4 +1,4 @@
-using MediatR;
+using Common.MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -6,9 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Sample.Api.Queries;
-using System.Collections.Generic;
-using System.Reflection;
-using Common.MediatR;
 
 namespace Sample.Api
 {
